@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_| |____/ \___/ \__|
 //      |___/                                             
 //
-// Version 1.5 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 18:02
-//「 若不爱你，死生无地。若不爱你，青魂可离。」
+// Version 1.7 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/21 21:49
+//「 结局是什么，我们自己决定！」
 
 const TelegramBot = require("node-telegram-bot-api");
 const dotenv = require("dotenv").config();
@@ -23,7 +23,13 @@ const { getFileLink } = require('./fetcher');
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
 
-    if (msg.document) {
+    if (msg.text === '/start') {
+        bot.sendMessage(chatId, "*Hi，你好喵~*\n向我发送文件即可获取下载链接（支持文件、视频、音频、图片、贴纸）", { parse_mode: 'Markdown' });
+    
+    } else if (msg.text === '/about') {
+        bot.sendMessage(chatId, "*TgFile2Url Bot* _v 1.7_\n© Copyright 2021-2023 NyaStudio, LLC.\n\n*Github 开源*\nhttps://github.com/BLxcwg666/TgFile2Url\n好用就点个 Star 吧 qwq\n\n*关注猫猫喵~ 关注猫猫谢谢喵~*\nTelegram Channel: @xcnyacn", { parse_mode: 'Markdown' });
+    
+    } else if (msg.document) {
         const fileId = msg.document.file_id;
         const UserID = msg.from.id;
         const FileName = msg.document.file_name;
@@ -58,9 +64,7 @@ bot.on('message', (msg) => {
         getFileLink(bot, db, chatId, fileId, UserID, FileName);
         console.log(`${UserID} Sent ${FileName}`);
 
-    } else {
-        bot.sendMessage(chatId, "无效的文件类型");
-    }
+    } else {}
 });
 
 console.log((`Bot Started.`));
