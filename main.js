@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_|
 //      |___/
 //
-// Version 1.6 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 20:50
-//「 偶尔的停顿和修整，对于人生是非常必要的。」
+// Version 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/21 22:10
+//「 我又不是因为你们的评价才去当的英雄，是因为我想当才去当的。」
 
 const { spawn } = require('child_process');
 const chalk = require('chalk');
@@ -20,7 +20,7 @@ figlet(title, (err, data) => {
     return;
   }
   console.log(data);
-  console.log("\nVersion 1.6 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url>");
+  console.log("\nVersion 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url>");
   console.log("----------------------------------------------------------------------");
 });
 

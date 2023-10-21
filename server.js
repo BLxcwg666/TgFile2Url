@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_| |____/ \___|_|    \_/ \___|_|
 //      |___/
 //
-// Version 1.6 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 20:48
-//「 烁的灯光是我在异世界大声地呼唤你。」
+// Version 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/21 22:10
+//「 梧高凤必至，花香蝶自来。」
 
 const express = require("express");
 const axios = require("axios");
@@ -23,13 +23,21 @@ const port = process.env.SERVER_PORT;
 const ssl = process.env.SERVER_SSL === 'true';
 const db = new sqlite3.Database('sqlite.db');
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Server', 'NekoServer');
+    res.header('X-Powered-By', 'NekoCore');
+    next();
+  });
+
 app.get('/:UserID/:ID/:FileName', (req, res) => {
     const { UserID, ID, FileName } = req.params;
 
     db.get("SELECT OriginLink FROM files WHERE ID = ? AND UserID = ? AND FileName = ?", [ID, UserID, FileName], (err, row) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Internal Server Error');
+            res.status(500).send({ code:"500", msg:"服务器坏掉惹呜呜呜~ 请检查控制台输出喵~"});
             return;
         }
 
@@ -42,12 +50,16 @@ app.get('/:UserID/:ID/:FileName', (req, res) => {
                 })
                 .catch(error => {
                     console.error(error);
-                    res.status(500).send('Error proxying file');
+                    res.status(500).json({ code:"500", msg:"代理源链接时出现错误呜呜呜~ 请检查控制台输出喵~"});
                 });
         } else {
-            res.status(404).send('File not found');
+            res.status(404).json({ code:"404", msg:"文件不存在喵~"});
         }
     });
+});
+
+app.use((req, res) => {
+    res.status(404).json({ code:"404", msg:"你在找什么喵？"});
 });
 
 if (ssl) {
