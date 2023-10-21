@@ -128,3 +128,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Env
+env
+.env
+*.env
+
+# SQL
+db
+sql
+*.db
+*.sql
