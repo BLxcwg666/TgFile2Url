@@ -1,8 +1,10 @@
 const express = require("express");
 const axios = require("axios");
+const dotenv = require("dotenv").config();
 
 const app = express();
-const port = 3000;
+const host = process.env.SERVER_HOST;
+const port = process.env.SERVER_PORT;
 
 app.get('/:UserID/:ID/:FileName', (req, res) => {
     const { UserID, ID, FileName } = req.params;
@@ -31,6 +33,6 @@ app.get('/:UserID/:ID/:FileName', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Express server is running on port ${port}`);
+app.listen(port, host, () => {
+    console.log(`Server started on ${host} port ${port}.`);
 });
