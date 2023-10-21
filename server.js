@@ -1,3 +1,14 @@
+// _____     _____ _ _      ____  _   _      _   ____
+// |_   _|_ _|  ___(_) | ___|___ \| | | |_ __| | / ___|  ___ _ ____   _____ _ __
+//   | |/ _` | |_  | | |/ _ \ __) | | | | '__| | \___ \ / _ \ '__\ \ / / _ \ '__|
+//   | | (_| |  _| | | |  __// __/| |_| | |  | |  ___) |  __/ |   \ V /  __/ |
+//   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_| |____/ \___|_|    \_/ \___|_|
+//      |___/
+//
+// Version 1.5 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/21 18:05
+//「 生死听天命，你也由天定！」
+
 const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv").config();
