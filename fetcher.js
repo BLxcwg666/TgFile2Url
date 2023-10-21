@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_| |_|  \___|\__\___|_| |_|\___|_|
 //      |___/
 //
-// Version 1.5 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 18:04
-//「 有情人终成眷属，没钱人亲眼目睹。」
+// Version 1.6 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/21 20:48
+//「 你怕不怕，这辈子就是上辈子所说的下辈子？」
 
 async function getFileLink(bot, db, chatId, fileId, UserID, FileName) {
   try {
@@ -20,8 +20,22 @@ async function getFileLink(bot, db, chatId, fileId, UserID, FileName) {
         bot.sendMessage(chatId, 'Error storing file information.');
       } else {
         const ID = this.lastID;
-        const customLink = `http://127.0.0.1:3000/${UserID}/${ID}/${FileName}`;
-        bot.sendMessage(chatId, `下载链接： ${customLink}`);
+        if (process.env.SERVER_SSL === 'true' && process.env.SERVER_PORT === '443') {
+            const customLink = `https://${process.env.SERVER_NAME}/${UserID}/${ID}/${FileName}`;
+            bot.sendMessage(chatId, `下载链接： ${customLink}`);
+
+        } else if (process.env.SERVER_SSL === 'true' && process.env.SERVER_PORT !== '443') {
+            const customLink = `https://${process.env.SERVER_NAME}:${process.env.SERVER_PORT}/${UserID}/${ID}/${FileName}`;
+            bot.sendMessage(chatId, `下载链接： ${customLink}`);
+
+        } else if (process.env.SERVER_SSL !== 'true' && process.env.SERVER_PORT === '80') {
+            const customLink = `http://${process.env.SERVER_NAME}/${UserID}/${ID}/${FileName}`;
+            bot.sendMessage(chatId, `下载链接： ${customLink}`);
+
+        }else {
+            const customLink = `http://${process.env.SERVER_NAME}:${process.env.SERVER_PORT}/${UserID}/${ID}/${FileName}`;
+            bot.sendMessage(chatId, `下载链接： ${customLink}`);
+        }
       }
     });
   } catch (error) {
