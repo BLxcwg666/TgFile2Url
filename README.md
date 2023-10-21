@@ -2,22 +2,22 @@
 一个简单的 Bot 将来自 Telegram 的文件转换为 Url  
 使用 Node.JS 构建，所以运行前请先自备 `Node.JS ≥ 16` 的环境喽  
 
-# 功能？
+## 功能？
 其实没什么特别的，就是你给他发个文件就可以获得一个下载这个文件的 Url，对于某些特定场景下非常实用  
 
-# 特性
+## 特性
 - 支持自定义下载域名
 - 支持 SSL / HTTPS 访问
 - 支持使用 Cloudflare
 - 支持基本上全类型的文件
 - 支持二改，但是必须开源
 
-# 安装
+## 安装
 将仓库克隆到本地后，使用 `npm install` 安装所需依赖  
 配置好 `.env` 后使用 `node main.js` 运行  
 可以通过 systemctl / screen 保活
 
-# 配置
+## 配置
 将 `.env.example` 复制为 `.env`，根据以下注释修改后保存  
 ```
 # Server 相关配置
@@ -35,12 +35,12 @@ CERT_KEY_PATH="./Certs/key.pem"       # 密钥路径（PEM 格式）
 BOT_TOKEN="11451419:NhE1hA14aAoAbHfFy5HvC1rHbKn4J"
 ```
 
-# 使用
+## 使用
 很简单啦~  
   
 ![image](https://github.com/BLxcwg666/TgFile2Url/assets/66854530/af2cbd29-1872-4da7-b69b-2db768e02f01)
 
-# 展望未来
+## 展望未来
 - Server 记录访问日志
 - 写 .log
 - 指定用户黑名单
