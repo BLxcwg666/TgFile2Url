@@ -18,6 +18,7 @@
 可以通过 systemctl / screen 保活
 
 # 配置
+将 `.env.example` 复制为 `.env`，根据以下注释修改后保存  
 ```
 # Server 相关配置
 SERVER_HOST=0.0.0.0                   # 绑定 IP，一般用 0.0.0.0
