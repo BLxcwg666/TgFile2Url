@@ -40,36 +40,41 @@ app.get('/:UserID/:ID/:FileName', (req, res) => {
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
+const { getFileLink } = require('./fetcher');
+
 bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
-  
-    if (msg.document) {
-      const fileId = msg.document.file_id;
-      const UserID = msg.from.id;
-      const FileName = msg.document.file_name;
-  
-      bot.getFileLink(fileId)
-        .then((fileLink) => {
-          const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  
-          db.run("INSERT INTO files (UserID, OriginLink, FileName, Time) VALUES (?, ?, ?, ?)", [UserID, fileLink, FileName, currentTime], function(err) {
-            if (err) {
-              console.error(err);
-              bot.sendMessage(chatId, 'Error storing file information.');
-            } else {
-              const insertedID = this.lastID;
-              const customLink = `http://127.0.0.1:3000/${UserID}/${insertedID}/${FileName}`;
-              bot.sendMessage(chatId, `下载链接： ${customLink}`);
-            }
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-          bot.sendMessage(chatId, '获取文件下载链接时出现问题。');
-        });
-    }
-  });
-  
+  const chatId = msg.chat.id;
+
+  if (msg.document) {
+    const fileId = msg.document.file_id;
+    const UserID = msg.from.id;
+    const FileName = msg.document.file_name;
+    getFileLink(bot, db, chatId, fileId, UserID, FileName);
+  } else if (msg.audio) {
+    const fileId = msg.audio.file_id;
+    const UserID = msg.from.id;
+    const FileName = msg.audio.file_name;
+    getFileLink(bot, db, chatId, fileId, UserID, FileName);
+  } else if (msg.video) {
+    const fileId = msg.video.file_id;
+    const UserID = msg.from.id;
+    const FileName = msg.video.file_name;
+    getFileLink(bot, db, chatId, fileId, UserID, FileName);
+  } else if (msg.photo) {
+    const fileId = msg.photo[msg.photo.length - 1].file_id;
+    const UserID = msg.from.id;
+    const FileName = `photo_${msg.message_id}.jpg`;
+    getFileLink(bot, db, chatId, fileId, UserID, FileName);
+  } else if (msg.sticker) {
+    const fileId = msg.sticker.file_id;
+    const UserID = msg.from.id;
+    const FileName = `sticker_${msg.message_id}.webp`;
+    getFileLink(bot, db, chatId, fileId, UserID, FileName);
+  } else {
+    bot.sendMessage(chatId, "无效的文件类型");
+  }
+});
+
   app.listen(port, () => {
     console.log(`Express server is running on port ${port}`);
   });
