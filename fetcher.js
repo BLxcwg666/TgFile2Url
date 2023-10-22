@@ -6,8 +6,8 @@
 //      |___/
 //
 // Version 1.7 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 21:50
-//「 因为你喜欢海，所以我一直浪。」
+// Lastest Update at 2023/10/22 11:25
+//「 没有BUG的代码是不完美的！」
 
 async function getFileLink(bot, db, chatId, fileId, UserID, FileName) {
   try {
@@ -20,22 +20,14 @@ async function getFileLink(bot, db, chatId, fileId, UserID, FileName) {
         bot.sendMessage(chatId, '获取文件信息失败呜呜呜~ 请检查控制台输出喵~');
       } else {
         const ID = this.lastID;
-        if (process.env.SERVER_SSL === 'true' && process.env.SERVER_PORT === '443') {
-            const customLink = `https://${process.env.SERVER_NAME}/${UserID}/${ID}/${FileName}`;
-            bot.sendMessage(chatId, `<strong>这是文件信息呐~</strong>\n名称：${FileName}\nUser ID：${UserID}\n在数据库中的 ID：${ID}\n\n<strong>下载链接喵~</strong>\n<pre>${customLink}</pre>`, { parse_mode: 'HTML' });
+        const isSSL = process.env.SERVER_SSL === 'true';
+        const isPort443 = process.env.SERVER_PORT === '443';
+        const serverName = process.env.SERVER_NAME;
+        const serverPort = isPort443 ? '' : `:${process.env.SERVER_PORT}`;
+        const protocol = isSSL ? 'https' : 'http';
 
-        } else if (process.env.SERVER_SSL === 'true' && process.env.SERVER_PORT !== '443') {
-            const customLink = `https://${process.env.SERVER_NAME}:${process.env.SERVER_PORT}/${UserID}/${ID}/${FileName}`;
-            bot.sendMessage(chatId, `<strong>这是文件信息呐~</strong>\n名称：${FileName}\nUser ID：${UserID}\n在数据库中的 ID：${ID}\n\n<strong>下载链接喵~</strong>\n<pre>${customLink}</pre>`, { parse_mode: 'HTML' });
-
-        } else if (process.env.SERVER_SSL !== 'true' && process.env.SERVER_PORT === '80') {
-            const customLink = `http://${process.env.SERVER_NAME}/${UserID}/${ID}/${FileName}`;
-            bot.sendMessage(chatId, `<strong>这是文件信息呐~</strong>\n名称：${FileName}\nUser ID：${UserID}\n在数据库中的 ID：${ID}\n\n<strong>下载链接喵~</strong>\n<pre>${customLink}</pre>`, { parse_mode: 'HTML' });
-
-        }else {
-            const customLink = `http://${process.env.SERVER_NAME}:${process.env.SERVER_PORT}/${UserID}/${ID}/${FileName}`;
-            bot.sendMessage(chatId, `<strong>这是文件信息呐~</strong>\n名称：${FileName}\nUser ID：${UserID}\n在数据库中的 ID：${ID}\n\n<strong>下载链接喵~</strong>\n<pre>${customLink}</pre>`, { parse_mode: 'HTML' });
-        }
+        const customLink = `${protocol}://${serverName}${serverPort}/${UserID}/${ID}/${FileName}`;
+        bot.sendMessage(chatId, `<strong>这是文件信息呐~</strong>\n名称：${FileName}\nUser ID：${UserID}\n在数据库中的 ID：${ID}\n\n<strong>下载链接喵~</strong>\n<pre>${customLink}</pre>`, { parse_mode: 'HTML' });
       }
     });
   } catch (error) {

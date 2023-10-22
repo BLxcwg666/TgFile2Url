@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_| |____/ \___|_|    \_/ \___|_|
 //      |___/
 //
-// Version 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 22:10
-//「 梧高凤必至，花香蝶自来。」
+// Version 1.9 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/22 12:47
+//「 人与人的相遇，不是恩赐就是劫。」
 
 const express = require("express");
 const axios = require("axios");
@@ -37,7 +37,7 @@ app.get('/:UserID/:ID/:FileName', (req, res) => {
     db.get("SELECT OriginLink FROM files WHERE ID = ? AND UserID = ? AND FileName = ?", [ID, UserID, FileName], (err, row) => {
         if (err) {
             console.error(err);
-            res.status(500).send({ code:"500", msg:"服务器坏掉惹呜呜呜~ 请检查控制台输出喵~"});
+            res.status(500).json({ code:"500", msg:"服务器坏掉惹呜呜呜~ 请检查控制台输出喵~"});
             return;
         }
 

@@ -5,9 +5,9 @@
 //   |_|\__, |_|   |_|_|\___|_____|\___/|_|  |_|
 //      |___/
 //
-// Version 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
-// Lastest Update at 2023/10/21 22:10
-//「 我又不是因为你们的评价才去当的英雄，是因为我想当才去当的。」
+// Version 1.9 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url> | @xcnya / @xcnyacn
+// Lastest Update at 2023/10/22 13:01
+//「 死并非再生的对立面，而是作为生的一部分永存于生中。」
 
 const { spawn } = require('child_process');
 const chalk = require('chalk');
@@ -20,7 +20,7 @@ figlet(title, (err, data) => {
     return;
   }
   console.log(data);
-  console.log("\nVersion 1.8 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url>");
+  console.log("\nVersion 1.9 | By BLxcwg666 <https://github.com/BLxcwg666/TgFile2Url>");
   console.log("----------------------------------------------------------------------");
 });
 
@@ -30,8 +30,18 @@ bot.stdout.on('data', (data) => {
   process.stdout.write(chalk.green(`[${currentTime}] [Bot] ${data}`));
 });
 
+bot.stderr.on('data', (data) => {
+  const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  process.stderr.write(chalk.red(`[${currentTime}] [Bot] ${data}`));
+});
+
 const server = spawn('node', ['server.js']);
 server.stdout.on('data', (data) => {
   const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
   process.stdout.write(chalk.blue(`[${currentTime}] [Server] ${data}`));
+});
+
+server.stderr.on('data', (data) => {
+  const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  process.stderr.write(chalk.red(`[${currentTime}] [Server] ${data}`));
 });
