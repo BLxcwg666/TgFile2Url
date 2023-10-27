@@ -2,7 +2,9 @@
 一个简单的 Bot 将来自 Telegram 的文件转换为 Url  
 使用 Node.JS 构建，所以运行前请先自备 `Node.JS ≥ 16` 的环境喽  
 
-## 功能？
+## 已放弃该项目
+
+## 功能
 其实没什么特别的，就是你给他发个文件就可以获得一个下载这个文件的 Url，对于某些特定场景下非常实用  
 
 ## 特性
@@ -40,8 +42,8 @@ BOT_TOKEN="11451419:NhE1hA14aAoAbHfFy5HvC1rHbKn4J"
   
 ![image](https://github.com/BLxcwg666/TgFile2Url/assets/66854530/af2cbd29-1872-4da7-b69b-2db768e02f01)
 
-## 展望未来
-- Server 记录访问日志
-- 写 .log
-- 指定用户黑名单
-- 文件发送日志（审计）
+## ~~展望未来~~
+- ~~Server 记录访问日志~~
+- ~~写 .log~~
+- ~~指定用户黑名单~~
+- ~~文件发送日志（审计）~~
